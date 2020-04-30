@@ -1,0 +1,108 @@
+Practical 1: Analysis of Algorithms
+
+
+Background
+There used to be an attitude that still persists today that as long as your code runs and gives the correct output, nothing else matters. In the past if your code ran rather slowly the easy solution was to add more processing power. Ultimately it comes down to which solution (building a better algorithm or adding more computational resources) is the best option given the requirements of your project. If you just need to make something work for a small scale project then focusing too much on optimizing your algorithm is not worthwhile. 
+However, in a world where algorithms increasingly need to perform effectively with endless amounts of data or on limited hardware, the ability to measure and monitor the performance of alternative algorithmic solutions becomes a very attractive skill. And if you want to work for a top computer company (i.e. Facebook, Google, Tesla) then this is a prerequisite skill. 
+
+
+What am I doing today? 
+Today’s practical focuses on 3 things: 
+1. Counting basic instructions of programs
+2. Translating a pseudocode multiplication program in to Java
+3. Timing the clock performance of a program
+
+
+Instructions
+Try all the questions. Ask for help from the demonstrators if you get stuck. 
+Solutions will be posted afterward. 
+
+
+***Grading: Remember if you complete the practical, add the code to your GitHub repo which needs to be submitted at the end of the course for an extra 5%
+
+
+**NOTE: we will demo how to get set up with your GitHub repo in Practical 2
+
+
+________________
+
+
+1. Algorithms for Multiplication
+Russian Peasant’s algorithm
+The Russian Peasant's Algorithm is an algorithm for multiplication that uses doubling, halving, and addition. This was an algorithm or a tool that was used before computers by people to multiply two numbers. One advantage it possesses over the standard method of multiplication that is taught in many schools (i.e. the Standard Algorithm) is that you do not need to have previously memorized multiplication tables to use the algorithm. In practice, the Russian Peasant’s Algorithm was likely calculated with the aid of small stones or beads to represent the units. 
+Read more here: https://en.wikipedia.org/wiki/Ancient_Egyptian_multiplication#Russian_peasant_multiplication
+The Russian Peasant’s Algorithm Instructions: 
+The basic idea is that to multiply x by y, we can compute instead: 
+ While (number1 != 0){ 
+If number1 is even, then add nothing
+If number1 is odd, add number 2 to the running total
+number1/2 
+number2*2
+}
+
+
+Multiply  238 x 13
+
+
+For example, to multiply 238 (number 1) by 13 (number 2) , the smaller of the numbers (to reduce the number of steps), 13, is written on the right and the larger on the left (the order does not matter, it’s a matter of convenience). The left number is progressively halved (discarding any remainder) and the right one doubled, until the left number is 1. Then you add all of the number2s together in rows where the number 1 is odd (see below). 
+
+
+  
+
+
+
+Exercise: 
+Your first exercise is to use the Russian Peasant’s Algorithm to multiply by hand: 
+
+
+68 x 139
+
+
+
+
+Half (throw away remainder) 	Double
+68				139
+34				278
+17				556
+8				112
+4				2224
+2				4448
+1				8896	
+
+Total	9452
+	
+
+2. Counting Instructions
+When analysing the performance of an algorithm we can assign a fixed and equivalent amount of time to the following operations: 
+* Assigning a value to a variable 
+* Calling a method 
+* Performing an arithmetic operation 
+* Comparing two numbers 
+* Indexing into an array 
+* Following an object reference 
+* Returning from a method 
+We call these individual “units of processing” UNIT TIME. We imagine an abstract computer that take one UNIT of TIME of each primitive operation above. This is the first step in assessing how our algorithm’s performance changes as the input grows WITHOUT having to consider specific software or hardware details. 
+
+
+Exercise 
+Count the instructions below in the psuedocode algorithm below and add them up to see how this algorithm performs. 
+
+
+arrayMax function 			Finds the biggest integer in an array
+Input: an array A of N integers
+Output: maximum element of A
+arrayMax(A, n) {			1
+currentMax = A[0]			2
+For (i=0; i < A.length; i++){		1 + N+1 + N
+If (A[i] > currentMax) then		2N 
+currentMax = A[i]			N or 2(N - 1)
+}
+Return currentMax			1
+End function
+
+Total: T(N)	6N + 4
+	
+
+	
+
+	

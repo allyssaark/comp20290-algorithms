@@ -1,0 +1,54 @@
+Practical 4: Elementary Sorting                                           
+What am I doing today? 
+Today’s practical focuses on 3 things: 
+1. Writing several elementary sorting algorithms
+2. Developing a testing framework to assess the performance of your algorithms
+3. Summarizing the results
+
+
+Instructions
+Try all the questions. Ask for help from the demonstrators if you get stuck. 
+
+
+***Grading: Remember if you complete the practical, add the code to your GitHub repo which needs to be submitted at the end of the course for an extra 5%
+
+
+
+
+
+
+________________
+
+
+Quick Questions
+1. How many compares does insertion sort make on an input array that is already sorted?
+Constant	1
+Logarithmic	logn
+Linear		n
+Quadratic	n^2
+	
+
+2. What is a stable sorting algorithm?
+An algorithm that is considered “sorted” if two equal keys appear to be in the same order in the sorted output as they did in the input order.
+
+3. What is an external sorting algorithm?
+A. Algorithm that uses tape or disk during the sort
+
+
+
+4. Identify 6 ways of classifying sorting algorithms?
+1. Time complexity
+2. Space complexity (usage of memory)
+3. Stability
+4. Internal / External
+5. Recursive / non-recursive
+6. Comparison sort / non-comparison sort
+	
+
+
+
+________________
+
+
+
+

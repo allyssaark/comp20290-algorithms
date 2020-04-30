@@ -1,0 +1,58 @@
+Practical 5: Advanced Sorting Algorithms 
+         
+What am I doing today? 
+Today’s practical focuses on:  
+1. Implementing Mergesort from pseudo-code and comparing Mergesort to Insertion Sort for increasing input sizes
+2. Implementing enhanced Mergesort
+3. Compare the performance between 3 sorting algorithms
+
+
+Instructions
+Try all the questions. Ask for help from the demonstrators if you get stuck. 
+
+
+Grading: Remember if you complete the practical, add the code to your GitHub repo which needs to be submitted at the end of the course for an extra 5%
+
+
+
+
+
+
+________________
+
+
+Quick Questions
+1. Mergesort guarantees to sort an array in  _______  time, regardless of the input: 
+
+4. Logarithmic time
+
+
+
+
+2. The main disadvantage of MergeSort is: 
+
+4. None of the above
+
+
+
+
+3. Merge sort makes use of which common algorithm strategy? 
+
+4. Divide and conquer 
+
+
+
+
+4. Which sorting algorithm will take the least time when all elements of the input array are identical? 
+
+2. MergeSort
+
+
+
+5. Which sorting algorithm should you use when the order of input is not known? 
+
+1. Mergesort 
+
+
+________________
+
