@@ -1,0 +1,177 @@
+﻿Practical 8: Run Length Compression                 
+
+
+Data compression reduces the size of a file to save space when storing it and to save time when transmitting it. While Moore's law guides that the number of transistors on a chip doubles every 18-24 months, Parkinson's law tells us that data expands to fill available space. The text, images, sound, video, and so on that we create every day is growing at a far greater rate than storage technology.  
+As an aside and illustration: Wikipedia provides public dumps of all its content for academic research and republishing. To compress these large files it uses bzip and SevenZip's LZMA (more on this later) and can take a week to compress of 300GB of data.
+
+
+Today’s practical focuses on:  
+1. Build a run length encoded function that takes any string inputs and outputs the compressed output
+2. Make use of the helper files and the provided RunLength java file to compress the files provided
+
+
+
+
+
+
+________________
+Step 1 Implement Run Length Encoding 
+Write your own Java function that takes in a string as a command line argument and returns a compressed string that uses Run Length Encoding (RLE). 
+So for example if the input (argument) into your program is: 
+“aaaabbbbb”
+Then your program should return
+“a4b5”
+Pseudocode
+To implement RLE you need to first loop through the characters in the input string. You use an int counter that counts the number of times you have seen the same character in a row. Once you encounter a different character, you then output the value of the counter you’ve just seen and the number (your count variable) that you have been counting. Then repeat until you get to end of the input string. If you want to optimize your compression, you could choose not to output a count if there is only one instance of the character (i.e., “a” instead of “a1”). 
+Steps
+1. Read in your input string
+2. Start at the first character in the input string
+3. Create a counter
+4. Keep incrementing as long as you keep seeing the same character in a row
+5. Once you encounter a new character, output the previous character and its count
+6. Repeat the same steps with the next character until you reach the end of the string
+7. Output the compressed string
+Step 2 Use the RunLength.java implementation that works with the binary input and output libraries provided
+In the next step we are going to work at the bit level to measure the amount of compression we can attain by applying Run Length Encoding on a series of files (text, binary and bitmaps). To refresh your memory, the BIN files included contain binary code (i.e. 0s and 1s). You’ll need to work in the Terminal (Mac), CommandPrompt (Windows), Shell etc., or use the input options in Eclipse for a lot of this exercise. 
+
+
+Included for your use in the repo are the following java files:
+* BinaryStdIn - to work at the fundamental level of compression, we want to work at the bit level. BinaryStdIn is included to read in 1 bit at a time. 
+* BinaryStdOut - a corollary of BinaryStdIn but for write bits out 1 at a time
+* BinaryDump - how can we examine the contents of the bits or bitstreams that we are working with (particularly while you are working on a program)? BinaryDump outputs the input in binary.
+* HexDump - this is the same as BinaryDump but in hex code which is more compact if you can read it using the table below
+  
+
+* RunLength (see below) - implements Run Length Encoding (as you did in Strings) but in binary and builds on the previous libraries provided above 
+
+
+static void
+	compress()
+Reads a sequence of bits from standard input; compresses them using run-length coding with 8-bit run lengths; and writes the results to standard output.
+	static void
+	expand()
+Reads a sequence of bits from standard input (that are encoded using run-length encoding with 8-bit run lengths); decodes them; and writes the results to standard output.
+	static void
+	main(String[] args)
+Sample client that calls compress() if the command-line argument is "-" an expand() if it is "+"
+
+
+	Input files included in the repo include:  
+* 4runs.bin
+* abra.text
+* q32x48.bin
+* q64x96.bin
+
+
+Binary Compression
+1. Begin by first outputting the number of bits in the binary file ‘4runs.bin’
+
+
+Use the command: java BinaryDump 40 < 4runs.bin
+Note down the bits. : 
+0000000000000001111111000000011111111111 (40 bits)
+
+
+2. Now let’s try to compress this file with Run Length Encoding and see what we get (we’ll combine RunLength with BinaryDump to see how much compression we achieve)
+
+
+Use the command: java RunLength - < 4runs.bin | java BinaryDump 
+Note down the bits.  :
+0111010001101000
+0110010100100000
+0111010001101001
+0110110101100101
+0010000001110100
+0110000101101011
+0110010101101110
+0010000000110001
+0000101000001111
+0000011100000111
+00001011 (168 bits)
+
+
+Calculate the compression ratio: compressed bits / original bits
+168 bits / 40 bits = 4.2
+
+
+3. Next we’ll output this compressed file to a new binary file and check we have the same compression ratio.
+Use the command: java RunLength - < 4runs.bin > 4runsrle.bin
+Use Binary Dump to check the bits: you can create this command yourself now
+java BinaryDump 16 < 4runsrle.bin
+0111010001101000
+0110010100100000
+0111010001101001
+0110110101100101
+0010000001110100
+0110000101101011
+0110010101101110
+0010000000110010
+0000101000001111
+0000011100000111
+00001011
+168 bits
+
+
+
+
+ASCII Compression
+1. Let’s run through some of the same steps but with a text file
+            Use the command: java BinaryDump 8 < abra.txt
+How many bits do you get? 
+96 bits
+
+
+2. Let’s see what we can get to with compression
+ java RunLength - < abra.txt | java BinaryDump 8
+How many bits did you get? 
+552 bits
+
+
+What is the compression ratio? 
+552 bits / 96 bits = 5.75
+
+
+Why do you think you got this? What is happening? 
+I think it does not compress as well because there are no “runs” of any letter in this text file. Instead of being able to compress multiple characters into something smaller, each character still has to be represented. Additionally, the letters have to be converted into binary as well, which takes 16 bits.
+3. Create your own text file that does lend itself to RunLength Encoding and perform the same steps as above, reporting your compression ratio. 
+java BinaryDump 8 < name.txt → 208 bits
+java RunLength - < name.txt | java BinaryDump 8 → 992 bits
+
+
+992 / 208 = 4.769
+
+
+Bitmap Compression 
+Run Length encoding is widely used for bitmaps because this input data is more likely to have long runs of repeated data (i.e. pixels). 
+
+
+Step 1: Use BinaryDump to find out how many bits the bitmap file q32x48.bin has
+Note down your answer : 1536 bits
+
+
+Step 2: Use Run Length function to compress the bitmap file q32x48.bin 
+Use the command to compress and output the compressed file to a new file: 
+Java RunLength - < q32x48.bin > q32x48rle.bin 
+
+
+Now use the BinaryDump function to count the bits in the compress file (‘q32x48rle.bin’). 
+
+
+1280 bits
+Step 3: Calculate the compression ratio
+1280/1536 = 0.833
+Step 4: Perform the Steps 1 and 2 on the higher resolution bitmap file q64x96.bin
+java BinaryDump 16 < q64x96.bin → 6144 bits 
+Java RunLength - < q64x96.bin > q64x96rle.bin
+java BinaryDump 16 < q64x96rle.bin → 2432 bits
+
+
+Note down the original bits and compressed bits. 
+Calculate the compression ratio?
+2432/6144 = 0.396
+
+
+Step 4: Compare the compression ratio of the first bitmap image to this second compressed bitmap image. What do you think is the reason for this difference?
+
+
+I think the second compressed better because it was a larger file, so more overlap was likely.
