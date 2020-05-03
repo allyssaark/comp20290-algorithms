@@ -3,7 +3,7 @@
  *  Execution:    java Huffman <method> inputFileName outputFileName
  *  Dependencies: BinaryIn.java; BinaryOut.java
  * 
- *
+ * 
  *  Compress or expand a binary input stream using the Huffman algorithm.
  *
  * Add instructions and documentation related to your Huffman algorithm here...
